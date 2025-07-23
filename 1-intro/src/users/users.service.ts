@@ -1,16 +1,22 @@
 import { Injectable } from '@nestjs/common';
 
-interface User {
-  name: string;
-  id: number;
-  age: number;
-  gender: string;
-  isMarried: boolean;
-}
+// interface User {
+//   name: string;
+//   id: number;
+//   age: number;
+//   gender: string;
+//   isMarried: boolean;
+// }
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [
+  users: {
+    name: string;
+    id: number;
+    age: number;
+    gender: string;
+    isMarried: boolean;
+  }[] = [
     { name: 'john', id: 1, age: 25, gender: 'male', isMarried: true },
     { name: 'nanment', id: 2, age: 15, gender: 'female', isMarried: false },
     { name: 'nanchin', id: 3, age: 22, gender: 'female', isMarried: true },
@@ -35,7 +41,7 @@ export class UsersService {
     gender?: string;
     isMarried?: boolean;
   }) {
-    const newUser: User = {
+    const newUser = {
       id: this.generateNewId(),
       name,
       age,
