@@ -1,18 +1,21 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class usersController {
   @Get()
-  getUsers(@Query() queryString: any) {
+  getUsers(
+    @Query('limit', ParseIntPipe) limit: number,
+    @Query('page', ParseIntPipe) page: number,
+  ) {
     const usersService = new UsersService();
-    console.log(queryString);
+    //if(queryString.gender) then do something
     return usersService.getUsers();
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: any) {
+  getUserById(@Param('id', ParseIntPipe) id: any) {
     const usersService = new UsersService();
-    return usersService.getUserById(+id);
+    return usersService.getUserById(id);
   }
 }
