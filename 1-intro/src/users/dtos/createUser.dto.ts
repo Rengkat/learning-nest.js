@@ -4,11 +4,13 @@ import {
   isNotEmpty,
   IsOptional,
   isString,
+  maxLength,
 } from 'class-validator';
 
 export class createUserDto {
-  @isString()
-  @isNotEmpty()
+  @isString({ message: 'name should be a string' })
+  @isNotEmpty({ message: 'name can not be empty' })
+  @maxLength(5)
   name: string;
   id: number;
   age: number;
