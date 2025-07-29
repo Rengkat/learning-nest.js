@@ -1,12 +1,16 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Get,
   Param,
   ParseIntPipe,
+  Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { createUserDto } from './dtos/createUser.dto';
 
 @Controller('users')
 export class usersController {
@@ -25,5 +29,14 @@ export class usersController {
   getUserById(@Param('id', ParseIntPipe) id: any) {
     const usersService = new UsersService();
     return usersService.getUserById(id);
+  }
+
+  @Post()
+  createUser(
+    @Body(new ValidationPipe({ transform: true, whitelist: true }))
+    user: createUserDto,
+  ) {
+    const usersService = new UsersService();
+    usersService.createUser(user);
   }
 }

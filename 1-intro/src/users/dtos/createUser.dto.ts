@@ -10,7 +10,7 @@ import {
 export class createUserDto {
   @isString({ message: 'name should be a string' })
   @isNotEmpty({ message: 'name can not be empty' })
-  @maxLength(5)
+  @maxLength(5, { message: 'should have max of 5' })
   name: string;
   id: number;
   age: number;
