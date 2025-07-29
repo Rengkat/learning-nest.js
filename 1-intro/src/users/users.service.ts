@@ -16,10 +16,32 @@ export class UsersService {
     age: number;
     gender: string;
     isMarried: boolean;
+    email: string;
   }[] = [
-    { name: 'john', id: 1, age: 25, gender: 'male', isMarried: true },
-    { name: 'nanment', id: 2, age: 15, gender: 'female', isMarried: false },
-    { name: 'nanchin', id: 3, age: 22, gender: 'female', isMarried: true },
+    {
+      name: 'john',
+      email: 'john@gmail.com',
+      id: 1,
+      age: 25,
+      gender: 'male',
+      isMarried: true,
+    },
+    {
+      name: 'nanment',
+      email: 'nanment@gmail.com',
+      id: 2,
+      age: 15,
+      gender: 'female',
+      isMarried: false,
+    },
+    {
+      name: 'nanchin',
+      email: 'nanchin@gmail.com',
+      id: 3,
+      age: 22,
+      gender: 'female',
+      isMarried: true,
+    },
   ];
 
   getUsers() {
@@ -33,10 +55,12 @@ export class UsersService {
   createUser({
     name,
     age,
+    email,
     gender = 'unknown',
     isMarried = false,
   }: {
     name: string;
+    email: string;
     age: number;
     gender?: string;
     isMarried?: boolean;
@@ -44,6 +68,7 @@ export class UsersService {
     const newUser = {
       id: this.generateNewId(),
       name,
+      email,
       age,
       gender,
       isMarried,
