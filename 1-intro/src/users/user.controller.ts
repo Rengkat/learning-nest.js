@@ -8,7 +8,6 @@ import {
   Patch,
   Post,
   Query,
-  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { createUserDto } from './dtos/createUser.dto';
@@ -17,6 +16,7 @@ import { EditUserDto } from './dtos/edit-user.dto';
 
 @Controller('users')
 export class usersController {
+  constructor(private userService: UsersService) {}
   @Get(':isMarried')
   getUsers(
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
@@ -24,22 +24,21 @@ export class usersController {
     @Param() param: getUserParamsDto,
   ) {
     //default and validation pipe is always using new keyword
-    const usersService = new UsersService();
-    console.log(limit, page);
-    return usersService.getUsers();
+
+    return this.userService.getUsers();
   }
 
   @Get(':id')
   getUserById(@Param('id', ParseIntPipe) id: any) {
-    const usersService = new UsersService();
-    return usersService.getUserById(id);
+    return this.userService.getUserById(id);
   }
 
   @Post()
   createUser(@Body() user: createUserDto) {
-    const usersService = new UsersService();
-    usersService.createUser(user);
+    this.userService.createUser(user);
   }
   @Patch()
-  updateUser(@Body() user: EditUserDto) {}
+  updateUser(@Body() user: EditUserDto) {
+    console.log(user);
+  }
 }
