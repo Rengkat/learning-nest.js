@@ -1,4 +1,9 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 
 interface User {
@@ -10,7 +15,10 @@ interface User {
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    @Inject(forwardRef(() => AuthService))
+    private readonly userService: UsersService,
+  ) {}
   isAuthenticated = false;
   register({ firstName, surname, email, password }: User) {
     const userExists = this.userService.users.find((u) => u.email === email);

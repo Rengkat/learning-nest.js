@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { AuthService } from 'src/auth/auth.service';
 
@@ -12,7 +12,7 @@ import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly authService: AuthService) {}
+  constructor(@Inject(forwardRef(()=>AuthService)) private readonly authService: AuthService) {}
   users: {
     name: string;
     id: number;
