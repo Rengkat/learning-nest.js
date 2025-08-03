@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
+import { AuthService } from 'src/auth/auth.service';
 
 // interface User {
 //   name: string;
@@ -10,6 +12,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
+  constructor(private readonly authService: AuthService) {}
   users: {
     name: string;
     id: number;
@@ -45,7 +48,10 @@ export class UsersService {
   ];
 
   getUsers() {
+    if(this.authService.isAuthenticated){
     return this.users;
+  } else{
+    throw new ExceptionsHandler('Not authenticated')
   }
 
   getUserById(id: number) {
