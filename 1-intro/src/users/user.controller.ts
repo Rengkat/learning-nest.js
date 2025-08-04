@@ -37,8 +37,4 @@ export class usersController {
   createUser(@Body() user: createUserDto) {
     this.userService.createUser(user);
   }
-  @Patch()
-  updateUser(@Body() user: EditUserDto) {
-    console.log(user);
-  }
 }
