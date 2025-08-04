@@ -5,15 +5,30 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 100,
+    nullable: false,
+  })
   firstName: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    length: 100,
+    nullable: false,
+  })
   surname: string;
 
-  @Column()
+  @Column({
+    type: 'enum',
+    default: 'unknown',
+  })
   gender?: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+    unique: true,
+    nullable: false,
+  })
   email: string;
 }
