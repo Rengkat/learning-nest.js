@@ -32,7 +32,9 @@ export class User {
   })
   gender?: string;
 
-  @OneToMany(() => Tweet)
+  @OneToMany(() => Tweet, {
+    cascade: true,
+  })
   @JoinColumn()
   tweet?: Tweet;
 

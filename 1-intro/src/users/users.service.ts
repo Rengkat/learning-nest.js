@@ -20,9 +20,17 @@ export class UsersService {
     @InjectRepository(Profile) private profileRepository: Repository<Profile>,
   ) {}
   public async createUser(createUserDto: CreateUserDto) {
+    //create user and profile
+
+    //create the profile first
     createUserDto.profile = createUserDto.profile ?? {};
     let profile = this.profileRepository.create(createUserDto.profile);
     this.profileRepository.save(profile);
+
+    // now user
+    let user = this.userRepository.create(createUserDto);
+    user.profile = profile;
+    return this.userRepository.save(user);
     // const userExist = await this.userRepository.findOne({
     //   where: { email: createUserDto.email },
     // });
