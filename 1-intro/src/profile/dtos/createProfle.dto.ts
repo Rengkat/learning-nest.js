@@ -1,15 +1,6 @@
-import {
-  isBoolean,
-  isEmail,
-  isNotEmpty,
-  IsOptional,
-  isString,
-  maxLength,
-} from 'class-validator';
-import { createProfileDto } from 'src/profile/dtos/createProfle.dto';
-import { createTweetDto } from 'src/tweet/createTweet.dto';
+import { createUserDto } from 'src/users/dtos/createUser.dto';
 
-export class createUserDto {
+export class createProfileDto {
   @isString({ message: 'name should be a string' })
   @isNotEmpty({ message: 'name can not be empty' })
   @maxLength(5, { message: 'should have max of 5' })
@@ -28,5 +19,5 @@ export class createUserDto {
   email: string;
 
   @IsOptional()
-  profile?: createProfileDto | null;
+  user?: createUserDto | null;
 }

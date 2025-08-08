@@ -7,6 +7,7 @@ import { UsersService } from './users/users.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { User } from './users/user.entity';
       inject: [],
       useFactory: () => ({
         type: 'postgres',
-        entities: [User],
+        // entities: [User],
+        autoLoadEntities: true,
         synchronize: true, // make false after development
         port: 5432,
         username: '',
@@ -26,6 +28,7 @@ import { User } from './users/user.entity';
         database: '',
       }),
     }),
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

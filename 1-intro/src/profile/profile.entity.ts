@@ -1,14 +1,15 @@
 import { Tweet } from 'src/tweet/tweet.entity';
+import { User } from 'src/users/user.entity';
 import {
   Column,
   Entity,
   JoinColumn,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Profile {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -32,9 +33,9 @@ export class User {
   })
   gender?: string;
 
-  @OneToMany(() => Tweet)
+  @OneToOne(() => Profile)
   @JoinColumn()
-  tweet?: Tweet;
+  profile?: Profile;
 
   @Column({
     type: 'varchar',
